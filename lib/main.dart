@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:notification/global/change_token.dart';
+import 'package:provider/provider.dart';
 
 import 'DashboardPage.dart';
 import 'firebase_options.dart';
@@ -7,10 +9,14 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-   // name: 'com.push.notification',
+    // name: 'com.push.notification',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return ChangeToken();
+      },
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
